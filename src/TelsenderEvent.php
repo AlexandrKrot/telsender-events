@@ -416,7 +416,7 @@ LOCATION: <b>{LOCATION}</b>
 TAG;
         $post = $this->responsesS();
 
-        $server = $_SERVER;
+        $server =  $this->getServer();
 
         $variable = [];
 
@@ -447,7 +447,7 @@ TAG;
         }
         global $post;
 
-        $server = $_SERVER;
+        $server = $this->getServer();
 
         $url = str_replace('/', '_', $server['REQUEST_URI']);
 
@@ -540,7 +540,7 @@ TAG;
     private function detect_city($ip)
     {
 
-        $ip = $_SERVER['REMOTE_ADDR'];
+        $ip = $this->getServer();
 
         $response = wp_remote_get('http://ipwhois.app/json/' . $ip);
         $json    = wp_remote_retrieve_body( $response );
@@ -558,6 +558,13 @@ TAG;
 
         return filter_input_array($_POST ?: $_GET, FILTER_SANITIZE_STRING);
 
+    }
+
+    /**
+     * @return array|false|null
+     */
+    private function getServer(){
+        return filter_input_array($_SERVER, FILTER_SANITIZE_STRING);
     }
 
 

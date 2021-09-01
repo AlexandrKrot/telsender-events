@@ -27,7 +27,6 @@ require_once( TELSENDEREvent_DIR . 'autoload.php' );
 
 
 // Регистрируем хук через
-// add_action( $tag, $function_to_add, $priority, $accepted_args );
 add_action( 'telsender_init', function($Telsender){
     $TelsenderEvent = new pechenki\TelsenderEvent\src\TelsenderEvent($Telsender);
 }, 10, 2 );
