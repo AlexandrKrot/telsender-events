@@ -6,6 +6,7 @@
 - [x] Login success
 - [x] Post interception
 - [x] Woocommerce Add To Cart
+- [x] Search bots
 - [ ] Utm
 
 
@@ -50,6 +51,15 @@ quantity : 1
 Product : Tests      
 Ip: 0.0.0.0
 #Add_to_cart
+```
+
+###Search bots
+>Interception Search bots
+>
+```Visit Search bot Googlebot:  
+8.8.8.8
+postId: 14 
+#botGooglebot
 ```
 
 

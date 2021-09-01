@@ -537,9 +537,12 @@ TAG;
         $this->settings[$name] = $value;
     }
 
+    /**
+     * @param $ip
+     * @return string
+     */
     private function detect_city($ip)
     {
-
         $ip = $this->getServer();
 
         $response = wp_remote_get('http://ipwhois.app/json/' . $ip);
