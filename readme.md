@@ -54,7 +54,7 @@ Ip: 0.0.0.0
 ```
 
 ###Search bots
->Interception Search bots
+>Interception Search bots (YandexBot, DuckDuckBot, Slurp, Bingbot, Googlebot) and custom
 >
 ```Visit Search bot Googlebot:  
 8.8.8.8
