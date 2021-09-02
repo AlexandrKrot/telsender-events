@@ -4,6 +4,7 @@ Tags: telegram, Сontact form 7 to telegram, Сontact form 7, wooccommerce to te
 Requires at least: 4.8
 Requires PHP: 7.2
 Tested up to: 5.8
+Stable tag:  0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
