@@ -52,12 +52,12 @@ class TelsenderEvent
         $settings = [];
 
         $settings['searchBots'] = [
-            'Googlebot'=>'Google bot',
-            'Bingbot '=>'Bing bot',
-            'Slurp '=>'Slurp',
-            'DuckDuckBot'=>'DuckDuck Bot',
-            'YandexBot'=>'Yandex Bot',
-            ''=>'Other',
+            'Googlebot' => 'Google bot',
+            'Bingbot ' => 'Bing bot',
+            'Slurp ' => 'Slurp',
+            'DuckDuckBot' => 'DuckDuck Bot',
+            'YandexBot' => 'Yandex Bot',
+            '' => 'Other',
         ];
         $settings['login_failed'] = get_option('ts_event_login_failed');
         $settings['token'] = get_option('ts_event_token');
@@ -135,25 +135,23 @@ class TelsenderEvent
         $settings['wc_add_to_cart_chat_id'] = get_option('ts_event_wc_add_to_cart_chat_id');
 
 
-
         $this->loadBotsSettings();
 
 
         $this->appendSetting($settings);
 
 
-
-
     }
 
-    private function loadBotsSettings(){
+    private function loadBotsSettings()
+    {
 
         /**
          * Bots
          */
         $settings['bots'] = get_option('ts_event_bots');
         $settings['otherbots'] = get_option('otherbots');
-        $settings['bots_list_val'] =  get_option('ts_event_bot_list_value');
+        $settings['bots_list_val'] = get_option('ts_event_bot_list_value');
 
 
         $this->appendSetting($settings);
@@ -161,9 +159,10 @@ class TelsenderEvent
 
     }
 
-    public function appendSetting($data){
+    public function appendSetting($data)
+    {
 
-        $this->settings = array_merge($this->settings,$data);
+        $this->settings = array_merge($this->settings, $data);
     }
 
     /**
@@ -198,8 +197,7 @@ class TelsenderEvent
          */
         if ($this->interception_post) $this->interception_post();
 
-        if ($this->bots) add_action('wp_head',array($this,'interception_bots'),99);
-
+        if ($this->bots) add_action('wp_head', array($this, 'interception_bots'), 99);
 
 
         add_shortcode('TS_PAGE', array($this, 'viewPage'));
@@ -215,7 +213,7 @@ class TelsenderEvent
 
         if (!$this->interception_post) return;
 
-        $post = $_POST;
+        $post = $this->responsesS();
         $send = false;
         $title = false;
         foreach ($this->interception_list_val as $val) {
@@ -230,10 +228,10 @@ class TelsenderEvent
 
         $message = ArrayHelper::ToString($post);
 
-        $message = $title.PHP_EOL.$message;
+        $message = $title . PHP_EOL . $message;
 
         $this->telsener->telegram->isSendPechenki = false; // fix
-        if ($this->interception_post_chat_id){
+        if ($this->interception_post_chat_id) {
             $this->telsener->telegram->Chat_id = $this->interception_post_chat_id;
         }
 
@@ -246,21 +244,22 @@ class TelsenderEvent
      *
      */
 
-    public function interception_bots(){
+    public function interception_bots()
+    {
         if (!$this->bots) return;
         global $post;
-        $server = $_SERVER;
+        $server = $this->getServer();
         $userAgent = (isset($server['HTTP_USER_AGENT'])) ? $server['HTTP_USER_AGENT'] : false;
 
-        $listBotsDetected = array_merge($this->bots_list_val,explode(',',$this->otherbots));
+        $listBotsDetected = array_merge($this->bots_list_val, explode(',', $this->otherbots));
 
         $send = false;
 
-        
-        if ($listBotsDetected){
-            foreach ( $listBotsDetected as $item) {
+
+        if ($listBotsDetected) {
+            foreach ($listBotsDetected as $item) {
                 if ($userAgent && $userAgent && !empty($item) &&
-                    (strpos($userAgent,$item) || strpos($userAgent,$item) ===0) ){
+                    (strpos($userAgent, $item) || strpos($userAgent, $item) === 0)) {
                     $send = true;
                     $bots = $item;
                     break;
@@ -272,16 +271,15 @@ class TelsenderEvent
         if (!$send) return;
 
 
-
         $message = <<<'TAG'
 Visit Search bot {bot}:  
 {REMOTE_ADDR} 
 postId: {id} 
 #bot{bot}  
 TAG;
-        $post = $this->requestServer();
+        $post = $this->responsesS();
 
-        $server = $_SERVER;
+        $server = $this->getServer();
 
         $variable = [];
 
@@ -290,7 +288,6 @@ TAG;
         $variable['{id}'] = get_queried_object_id();
         $variable['{REMOTE_ADDR}'] = (isset($server['REMOTE_ADDR'])) ? $server['REMOTE_ADDR'] : 'None';
         $variable['{USER_AGENT}'] = (isset($server['HTTP_USER_AGENT'])) ? $server['HTTP_USER_AGENT'] : 'None';
-
 
 
         $message = str_replace(array_keys($variable), array_values($variable), $message);
@@ -323,7 +320,7 @@ TAG;
 
         $product = wc_get_product($product_id);
 
-        $server = $_SERVER;
+        $server = $this->getServer();
 
         $variable = [];
         $variable['{productName}'] = $product->get_name();
@@ -341,7 +338,7 @@ Ip: <code>{REMOTE_ADDR}</code>
 
 #Add_to_cart  
 TAG;
-        $message = apply_filters('tsevent_after_add_to_cart',$message,$variable);
+        $message = apply_filters('tsevent_after_add_to_cart', $message, $variable);
 
 
         $message = str_replace(array_keys($variable), array_values($variable), $message);
@@ -416,7 +413,7 @@ LOCATION: <b>{LOCATION}</b>
 TAG;
         $post = $this->responsesS();
 
-        $server =  $this->getServer();
+        $server = $this->getServer();
 
         $variable = [];
 
@@ -441,10 +438,7 @@ TAG;
 
     public function viewPage($attr)
     {
-        if (!session_id()) {
-            session_start();
-
-        }
+       
         global $post;
 
         $server = $this->getServer();
@@ -543,31 +537,33 @@ TAG;
      */
     private function detect_city($ip)
     {
-        $ip = $this->getServer();
+        $server = $this->getServer();
 
-        $response = wp_remote_get('http://ipwhois.app/json/' . $ip);
-        $json    = wp_remote_retrieve_body( $response );
+        $response = wp_remote_get('http://ipwhois.app/json/' . $server['REMOTE_ADDR']);
+        $json = wp_remote_retrieve_body($response);
 
         $ipwhois_result = json_decode($json, true);
-
         return $ipwhois_result['country_code'] . ', ' . $ipwhois_result['region'] . ', ' . $ipwhois_result['city'];
-
     }
 
     /**
      * @return array
      */
-    private function responsesS(){
+    private function responsesS()
+    {
 
-        return filter_input_array($_POST ?: $_GET, FILTER_SANITIZE_STRING);
+        return filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING) ?: filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
+
 
     }
 
     /**
      * @return array|false|null
      */
-    private function getServer(){
-        return filter_input_array($_SERVER, FILTER_SANITIZE_STRING);
+    private function getServer()
+    {
+        return filter_input_array(INPUT_SERVER, FILTER_SANITIZE_STRING);
+
     }
 
 
