@@ -438,7 +438,7 @@ TAG;
 
     public function viewPage($attr)
     {
-       
+
         global $post;
 
         $server = $this->getServer();
@@ -459,7 +459,7 @@ Ip: <b>{REMOTE_ADDR}</b>
 User agent: <b>{USER_AGENT}</b>
 Referer: <b>{REFERER}</b>  
       
-#View_page    
+#View_page   
 TAG;
 
         $variable = apply_filters('tsevent_view_page', $variable);
