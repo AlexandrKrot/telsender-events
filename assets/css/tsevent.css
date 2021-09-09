@@ -35,11 +35,13 @@
     margin: 1px;
     color: #fff;
 }
+
 #telsenderevent button.remove {
     color: #fff;
     background: red;
     margin: 1px;
 }
+
 #telsenderevent input::placeholder {
     opacity: 0.5;
 }
