@@ -487,9 +487,11 @@ TAG;
     {
 
         wp_enqueue_style('multi-select', plugin_dir_url(__FILE__) . '../assets/css/multiselect.css');
+
+        wp_enqueue_style('tsevent-css', plugin_dir_url(__FILE__) . '../assets/css/tsevent.css','0.1');
+
         wp_enqueue_script('multi-select.', plugin_dir_url(__FILE__) . '../assets/js/multiselect.js');
         wp_enqueue_script('tsevent', plugin_dir_url(__FILE__) . '../assets/js/tsevent.js');
-        wp_enqueue_style('tsevent', plugin_dir_url(__FILE__) . '../assets/css/tsevent.css');
         return $this->render('/assets/template/settings', $this->settings);
 
     }

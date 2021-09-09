@@ -30,6 +30,7 @@
             <label><input type="text" value="" name="ts_event_login_success_chat_id" placeholder="<?=$login_success_chat_id;?>"/><span> Send Chat id</span></label>
         </div>
     </fieldset>
+
     <?php if (is_array($interception_list_val)): ?>
         <fieldset>
             <legend>Post interception</legend>
@@ -58,8 +59,10 @@
     <?php endif; ?>
 
 
-    <fieldset class="disabled">
-        <legend>Utm</legend>
+    <fieldset disabled>
+        <div class="disabled">
+        <legend> Utm </legend>
+
         <label><input value="1" <?=checked( $utm );?> name="ts_event_utm" type="checkbox"/><span>Enabled</span></label>
         <div>
             <label><input type="text" value="<?=$utm_chat_id?>" name="ts_event_utm_chat_id"
@@ -77,6 +80,7 @@
                 <?php endforeach; ?>
             <?php endif;?>
         </div>
+        </div>
     </fieldset>
 
 
@@ -87,6 +91,7 @@
             <label><input type="text" value="<?=$wc_add_to_cart_chat_id;?>" name="ts_event_wc_add_to_cart_chat_id" placeholder="<?=$default_chat_id?>"/><span> Send Chat id</span></label>
         </div>
     </fieldset>
+
 
     <fieldset>
         <legend>Search bots</legend>
@@ -130,3 +135,4 @@
     <button class="button-primary" type="submit">Save</button>
     </form>
 </div>
+

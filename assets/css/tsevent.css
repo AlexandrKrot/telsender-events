@@ -78,13 +78,13 @@
 
 }
 
-fieldset.disabled {
+.disabled {
     opacity: .4;
     cursor: no-drop;
     position: relative;
 }
 
-fieldset.disabled:before {
+.disabled:before {
     content: '';
     bottom: 0;
     left: 0;
