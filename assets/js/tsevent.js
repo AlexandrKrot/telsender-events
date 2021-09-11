@@ -4,6 +4,8 @@ tseventUrmHandller = (event) => {
     if (elem.classList.contains('add')) {
         const copy = elem.closest('.utm_list').cloneNode(true)
         copy.querySelector('.add').remove()
+        copy.querySelector('.remove').disabled = false
+
         document.querySelector('.utm_list').insertAdjacentHTML('afterend',copy.outerHTML)
     }
 
