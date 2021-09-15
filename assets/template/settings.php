@@ -103,13 +103,13 @@
             <div class="bots_list"><select multiple="multiple" name="ts_event_bot_list_value[]"
                                            placeholder="Bot params">
                     <?php foreach ($searchBots as $botValue =>$botName): ?>
-                        <option <?php echo  selected($bots_list_val,$botValue) ?> value="<?php echo $botValue?>"> <?php echo $botName?> </option>
+                        <option <?php echo  selected($bots_list_val,$botValue); ?> value="<?php echo $botValue;?>"> <?php echo $botName;?> </option>
                     <?php endforeach; ?>
                     <option selected value="">Other</option>
                 </select>
             </div>
             <div class="other_bots">
-                <input type="text" placeholder="Other bots" name="otherbots" value="<?php echo $otherbots;?>"/>
+                <input type="text" placeholder="Other bots" name="otherbots" value="<?php echo $otherbots; ?>"/>
             </div>
         </div>
     </fieldset>
