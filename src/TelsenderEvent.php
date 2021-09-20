@@ -250,12 +250,11 @@ class TelsenderEvent
         global $post;
         $server = $this->getServer();
         $userAgent = (isset($server['HTTP_USER_AGENT'])) ? $server['HTTP_USER_AGENT'] : false;
+        if (!$this->otherbots) return ;
 
         $listBotsDetected = array_merge($this->bots_list_val, explode(',', $this->otherbots));
 
         $send = false;
-
-
         if ($listBotsDetected) {
             foreach ($listBotsDetected as $item) {
                 if ($userAgent && $userAgent && !empty($item) &&
