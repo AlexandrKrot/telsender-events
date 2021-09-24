@@ -17,7 +17,7 @@
 
     <fieldset>
         <legend>Login Failed</legend>
-        <label><input value="1" <?php echo checked( $login_failed );?> name="ts_event_login_failed" type="checkbox"/><span>Enabled</span></label>
+        <label><input value="1" <?php  checked( $login_failed );?> name="ts_event_login_failed" type="checkbox"/><span>Enabled</span></label>
         <div>
             <label><input type="text" value="<?php echo esc_attr($login_failed_chat_id);?>" name="ts_event_login_failed_chat_id" placeholder="<?php echo esc_attr($default_chat_id);?>"/><span> Send Chat id</span></label>
         </div>
@@ -25,7 +25,7 @@
 
     <fieldset>
         <legend>Login success</legend>
-        <label><input value="1" <?php echo checked( $login_success );?> name="ts_event_login_success" type="checkbox"/><span>Enabled</span></label>
+        <label><input value="1" <?php  checked( $login_success );?> name="ts_event_login_success" type="checkbox"/><span>Enabled</span></label>
         <div>
             <label><input type="text" value="" name="ts_event_login_success_chat_id" placeholder="<?php echo esc_attr($login_success_chat_id);?>"/><span> Send Chat id</span></label>
         </div>
@@ -34,10 +34,10 @@
     <?php if (is_array($interception_list_val)): ?>
         <fieldset>
             <legend>Post interception</legend>
-            <label><input value="1" <?php echo checked( $interception_post );?> name="ts_event_interception_post" type="checkbox"/><span>Enabled</span></label>
+            <label><input value="1" <?php  checked( $interception_post );?> name="ts_event_interception_post" type="checkbox"/><span>Enabled</span></label>
             <div>
                 <label>
-                    <input type="text" value="<?php echo $interception_post_chat_id;?>" name="ts_event_interception_post_chat_id"
+                    <input type="text" value="<?php echo esc_attr($interception_post_chat_id);?>" name="ts_event_interception_post_chat_id"
                            placeholder="<?php echo esc_attr($default_chat_id);?>"/><span> Send Chat id</span>
                 </label>
             </div>
@@ -66,7 +66,7 @@
         <div class="disabled">
         <legend> Utm </legend>
 
-        <label><input value="1" <?php echo checked( $utm );?> name="ts_event_utm" type="checkbox"/><span>Enabled</span></label>
+        <label><input value="1" <?php  checked( $utm );?> name="ts_event_utm" type="checkbox"/><span>Enabled</span></label>
         <div>
             <label><input type="text" value="<?php echo esc_attr($utm_chat_id);?>" name="ts_event_utm_chat_id"
                           placeholder="<?php echo esc_attr($default_chat_id);?>"/><span> Send Chat id</span></label>
@@ -86,10 +86,10 @@
         </div>
     </fieldset>
 
-
+        <?php echo checked( $wc_add_to_cart );?>
     <fieldset>
         <legend>Woocommerce Add To Cart</legend>
-        <label><input value="1" <?php echo checked( $wc_add_to_cart );?> checked="" name="ts_event_wc_add_to_cart" type="checkbox"/><span>Enabled</span></label>
+        <label><input value="1" <?php  checked( $wc_add_to_cart );?>  name="ts_event_wc_add_to_cart" type="checkbox"/><span>Enabled</span></label>
         <div>
             <label><input type="text" value="<?php echo  esc_attr($wc_add_to_cart_chat_id);?>" name="ts_event_wc_add_to_cart_chat_id" placeholder="<?php echo esc_attr($default_chat_id)?>"/><span> Send Chat id</span></label>
         </div>
@@ -100,16 +100,15 @@
         <legend>Search bots</legend>
         <label><input value="1" <?php echo checked(  $bots );?> name="ts_event_bots" type="checkbox"/><span>Enabled</span></label>
         <div class="bot_list_wrap">
-            <div class="bots_list"><select multiple="multiple" name="ts_event_bot_list_value[]"
-                                           placeholder="Bot params">
+            <div class="bots_list"><select multiple="multiple" name="ts_event_bot_list_value[]"  placeholder="Bot params">
                     <?php foreach ($searchBots as $botValue =>$botName): ?>
-                        <option <?php echo  selected($bots_list_val,$botValue); ?> value="<?php echo  esc_attr($botValue);?>"> <?php echo $botName;?> </option>
+                        <option <?php if (in_array($botValue,$bots_list_val)) echo 'selected';  ?> value="<?php echo  esc_attr($botValue);?>"> <?php echo $botName;?> </option>
                     <?php endforeach; ?>
                     <option selected value="">Other</option>
                 </select>
             </div>
             <div class="other_bots">
-                <input type="text" placeholder="Other bots" name="otherbots" value="<?php echo $otherbots; ?>"/>
+                <input type="text" placeholder="Other bots" name="otherbots" value="<?php echo esc_attr($otherbots); ?>"/>
             </div>
         </div>
     </fieldset>

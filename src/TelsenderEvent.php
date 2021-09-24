@@ -151,7 +151,7 @@ class TelsenderEvent
          */
         $settings['bots'] = get_option('ts_event_bots');
         $settings['otherbots'] = get_option('otherbots');
-        $settings['bots_list_val'] = get_option('ts_event_bot_list_value');
+        $settings['bots_list_val'] = get_option('ts_event_bot_list_value')?:[];
 
 
         $this->appendSetting($settings);
