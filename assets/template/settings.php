@@ -45,11 +45,11 @@
             <div class="utm_list_wrap">
                 <?php foreach ($interception_list_val as $key => $inter): ?>
                     <div class="utm_list">
-                        <input type="text" value="<?php echo $inter['param'];?>" name="ts_event_interception_list_param[]"
+                        <input type="text" value="<?php echo esc_attr($inter['param']);?>" name="ts_event_interception_list_param[]"
                                placeholder="interception params"/>
-                        <input type="text" value="<?php echo $inter['value'];?>" name="ts_event_interception_list_value[]"
+                        <input type="text" value="<?php echo esc_attr($inter['value']);?>" name="ts_event_interception_list_value[]"
                                placeholder="interception params value"/>
-                        <input type="text" value="<?php echo $inter['title'];?>" name="ts_event_interception_list_title[]" placeholder="Title message"/>
+                        <input type="text" value="<?php echo esc_attr($inter['title']);?>" name="ts_event_interception_list_title[]" placeholder="Title message"/>
                         <?php if ($key == 0): ?>
                             <button type="button" class="add">+</button>
                         <?php endif; ?>
