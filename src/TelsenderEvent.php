@@ -151,7 +151,7 @@ class TelsenderEvent
          */
         $settings['bots'] = get_option('ts_event_bots');
         $settings['otherbots'] = get_option('otherbots');
-        $settings['bots_list_val'] = get_option('ts_event_bot_list_value');
+        $settings['bots_list_val'] = get_option('ts_event_bot_list_value')?:[];
 
 
         $this->appendSetting($settings);
@@ -172,7 +172,7 @@ class TelsenderEvent
     {
         $this->loadSettings();
 
-        if ($this->token) $this->telsener->telegram->Token = $this->token;
+
 
 
         add_action('admin_menu', array($this, 'settingsTemplete'));
@@ -212,7 +212,7 @@ class TelsenderEvent
     {
 
         if (!$this->interception_post) return;
-
+        if ($this->token) $this->telsener->telegram->Token = $this->token;
         $post = $this->responsesS();
         $send = false;
         $title = false;
@@ -247,15 +247,15 @@ class TelsenderEvent
     public function interception_bots()
     {
         if (!$this->bots) return;
+        if ($this->token) $this->telsener->telegram->Token = $this->token;
         global $post;
         $server = $this->getServer();
         $userAgent = (isset($server['HTTP_USER_AGENT'])) ? $server['HTTP_USER_AGENT'] : false;
+        if (!$this->otherbots) return ;
 
         $listBotsDetected = array_merge($this->bots_list_val, explode(',', $this->otherbots));
 
         $send = false;
-
-
         if ($listBotsDetected) {
             foreach ($listBotsDetected as $item) {
                 if ($userAgent && $userAgent && !empty($item) &&
@@ -357,7 +357,7 @@ TAG;
     public function failedlogin($username, $error)
     {
 
-
+        if ($this->token) $this->telsener->telegram->Token = $this->token;
         $message = <<<'TAG'
 
 📛 failed login 📛:
@@ -400,7 +400,7 @@ TAG;
      */
     public function login($user_login, $user)
     {
-
+        if ($this->token) $this->telsener->telegram->Token = $this->token;
         $message = <<<'TAG'
 ✅ Login success ✅:
 Login : <code>{USER_NAME}</code>  
@@ -442,7 +442,7 @@ TAG;
         global $post;
 
         $server = $this->getServer();
-
+        if ($this->token) $this->telsener->telegram->Token = $this->token;
         $url = str_replace('/', '_', $server['REQUEST_URI']);
 
         if (isset($_SESSION[$url])) return false; //  reset one send
