@@ -8,7 +8,7 @@
 Plugin Name: Telsender Events
 Description:
 Author: Pechenki
-Version: 0.1
+Version: 0.2
 Author URI: https://pechenki.top/
 */
 //////////////////////////////////
